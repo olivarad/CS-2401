@@ -1,0 +1,16 @@
+Script started on 2023-02-21 15:30:29-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="258" LINES="10"]
+]0;olivarad@OliviasPC: ~/CS-2401/Labs/Lab05[01;32molivarad@OliviasPC[00m:[01;34m~/CS-2401/Labs/Lab05[00m$ ./a.out
+Now showing list One: 
+Elizabeth Zachary Clay Lainie Izaak Andrew 
+Please enter a target name: Lainie
+That name is stored at address: 0x55fc26f84f40
+Clay Lainie Izaak Andrew Elizabeth Zachary 
+]0;olivarad@OliviasPC: ~/CS-2401/Labs/Lab05[01;32molivarad@OliviasPC[00m:[01;34m~/CS-2401/Labs/Lab05[00m$ ./a.out
+Now showing list One: 
+Elizabeth Zachary Clay Lainie Izaak Andrew 
+Please enter a target name: Olivia
+That name is not in the list.
+Clay Lainie Izaak Andrew Elizabeth Zachary 
+]0;olivarad@OliviasPC: ~/CS-2401/Labs/Lab05[01;32molivarad@OliviasPC[00m:[01;34m~/CS-2401/Labs/Lab05[00m$ exit
+
+Script done on 2023-02-21 15:30:56-05:00 [COMMAND_EXIT_CODE="0"]
