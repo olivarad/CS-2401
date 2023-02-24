@@ -28,6 +28,10 @@ void WaitList::display(std::ostream& outs)const{ // Output the list data
 
 }
 
+Appointment WaitList::find(std::string patientname){ // Returns an appointment opject that matches the provided name
+    return Appointment(); // Returns default appointment should one not be found
+}
+
 void WaitList::remove(std::string patientname){ // Removes an appointment from the list (requires changing links but not reordering)
 
 }

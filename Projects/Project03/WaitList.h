@@ -21,6 +21,7 @@ class WaitList{
 
         void add(Appointment ap); // Adds an appointment to the list (list must be reordered after this to reflect waitlist priority)
         void display(std::ostream& outs)const; // Output the list data
+        Appointment find(std::string patientname); // Returns an appointment opject that matches the provided name
         void remove(std::string patientname); // Removes an appointment from the list (requires changing links but not reordering)
         unsigned int waiting(); // Returns an integer value of the number of people waiting
         unsigned int longest_wait(); // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
