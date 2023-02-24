@@ -5,6 +5,7 @@
  */
 
 #include "WaitList.h"
+#include "appointment.h"
 
 using namespace std;
 
@@ -29,19 +30,28 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
         head -> set_data(ap); // Inputs the appointment data to the new node
         head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
     }
-    else{
-        node* temp = head; // Creates a temporary node pointer
+    else{ // Adds a new node to the first spot in the list because reordering is required anyways
+        node* newNode = new node; // Creates a node pointer and points it to a new node
+        newNode -> set_data(ap); // Inputs the appointment data to the new node
+        newNode -> set_next(head); // Makes the new node point to the head of the list
+        head -> set_next(newNode); // Sets the head to point to the address of the new node   
+        
+        //Unoptimized code
+        /*
         for (temp = head; temp -> next() != NULL; temp = temp -> next()) // Advances pointer to the last node in the list
         temp -> set_next(new node); // Creates a new node and points to it
         temp = temp -> next(); // Advances the pointer to the recently added node
         head -> set_data(ap); // Inputs the appointment data to the new node
         head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
+        */
     }
     //reorder(); // Calls the reorder function to reorder the list
 }
 
 void WaitList::display(std::ostream& outs)const{ // Output the list data
-
+    for (node* temp = head; temp != NULL; temp = temp -> next()){
+        temp -> data().output(outs); // Calls the output function in appointment
+    }
 }
 
 Appointment WaitList::find(std::string patientname)const{ // Returns an appointment opject that matches the provided name
