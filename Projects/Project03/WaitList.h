@@ -31,6 +31,7 @@ class WaitList{
         unsigned int average_age()const; // Returns the average age of all patients in years
         void load(std::istream& ins); // Loads the WaitList in from a file
         void save(std::ostream& outs); // Saves the contents of the WaitList to a specified outstream
+        void reorder(); // Reorders the list (to be called after adding a new node)
     private:
     node* head; // Pointer to the head of the linked list
 };

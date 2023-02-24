@@ -24,7 +24,20 @@ void WaitList::operator = (const WaitList& other){ // Assignment operator
 }
 
 void WaitList::add(Appointment ap){ // Adds an appointment to the list (list must be reordered after this to reflect waitlist priority)
-
+    if(head == NULL){ // Empty List
+        head = new node; // Creates a new node and points to it with head
+        head -> set_data(ap); // Inputs the appointment data to the new node
+        head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
+    }
+    else{
+        node* temp = head; // Creates a temporary node pointer
+        for (temp = head; temp -> next() != NULL; temp = temp -> next()) // Advances pointer to the last node in the list
+        temp -> set_next(new node); // Creates a new node and points to it
+        temp = temp -> next(); // Advances the pointer to the recently added node
+        head -> set_data(ap); // Inputs the appointment data to the new node
+        head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
+    }
+    //reorder(); // Calls the reorder function to reorder the list
 }
 
 void WaitList::display(std::ostream& outs)const{ // Output the list data
