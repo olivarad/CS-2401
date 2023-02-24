@@ -9,7 +9,10 @@
 using namespace std;
 
 WaitList::~WaitList(){ // Deconstructor
-
+    for (node* temp = head; head != NULL; temp = head){
+        head = head -> next(); // Advances head pointer
+        delete temp; // Deallocates data stored behind updated head pointer
+    }
 }
 
 WaitList::WaitList(const WaitList& other){ // Copy constructor
@@ -28,7 +31,7 @@ void WaitList::display(std::ostream& outs)const{ // Output the list data
 
 }
 
-Appointment WaitList::find(std::string patientname){ // Returns an appointment opject that matches the provided name
+Appointment WaitList::find(std::string patientname)const{ // Returns an appointment opject that matches the provided name
     return Appointment(); // Returns default appointment should one not be found
 }
 
@@ -36,19 +39,19 @@ void WaitList::remove(std::string patientname){ // Removes an appointment from t
 
 }
 
-unsigned int WaitList::waiting(){ // Returns an integer value of the number of people waiting
+unsigned int WaitList::waiting()const{ // Returns an integer value of the number of people waiting
     unsigned int count = 0; // Initalizes the count of patients to 0
 
     return count; // Returns the number of waiting people
 }
 
-unsigned int WaitList::longest_wait(){ // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
+unsigned int WaitList::longest_wait()const{ // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
     unsigned int LongestWait = 0; // initializes the longest wait to 0
 
     return LongestWait; // Returns the longest wait in minutes
 }
 
-unsigned int WaitList::average_wait(){ // Returns the average wait in minutes
+unsigned int WaitList::average_wait()const{ // Returns the average wait in minutes
     unsigned int AverageWait = 0; // Initializes the average wait to 0
     unsigned int TotalWait = 0; // Initializes the total wait to 0
     unsigned int count = waiting(); // Calls the waiting function to find out how many patients are in the wait list
@@ -56,19 +59,19 @@ unsigned int WaitList::average_wait(){ // Returns the average wait in minutes
     return AverageWait; // Returns the average wait in minutes
 }
 
-unsigned int WaitList::oldest(){ // Returns the oldest patients age in years
+unsigned int WaitList::oldest()const{ // Returns the oldest patients age in years
     unsigned int oldest = 0; // Age in years of the oldest patient
 
     return oldest; // Returns the age of the oldest patient in years
 }
 
-unsigned int WaitList::youngest(){ // Returns the youngest patients age in years
+unsigned int WaitList::youngest()const{ // Returns the youngest patients age in years
     unsigned int youngest = 0; // Age in years of the youngest patient
 
     return youngest; // Returns the age of the youngest patient in years
 }
 
-unsigned int WaitList::average_age(){ // Returns the average age of all patients in years
+unsigned int WaitList::average_age()const{ // Returns the average age of all patients in years
     unsigned int average = 0; // Average age in years
 
     return average; // Returns the average of all patients age in years

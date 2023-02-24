@@ -21,14 +21,14 @@ class WaitList{
 
         void add(Appointment ap); // Adds an appointment to the list (list must be reordered after this to reflect waitlist priority)
         void display(std::ostream& outs)const; // Output the list data
-        Appointment find(std::string patientname); // Returns an appointment opject that matches the provided name
+        Appointment find(std::string patientname)const; // Returns an appointment opject that matches the provided name
         void remove(std::string patientname); // Removes an appointment from the list (requires changing links but not reordering)
-        unsigned int waiting(); // Returns an integer value of the number of people waiting
-        unsigned int longest_wait(); // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
-        unsigned int average_wait(); // Returns the average wait in minutes
-        unsigned int oldest(); // Returns the oldest patients age in years
-        unsigned int youngest(); // Returns the youngest patients age in years
-        unsigned int average_age(); // Returns the average age of all patients in years
+        unsigned int waiting()const; // Returns an integer value of the number of people waiting
+        unsigned int longest_wait()const; // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
+        unsigned int average_wait()const; // Returns the average wait in minutes
+        unsigned int oldest()const; // Returns the oldest patients age in years
+        unsigned int youngest()const; // Returns the youngest patients age in years
+        unsigned int average_age()const; // Returns the average age of all patients in years
         void load(std::istream& ins); // Loads the WaitList in from a file
         void save(std::ostream& outs); // Saves the contents of the WaitList to a specified outstream
     private:
