@@ -35,17 +35,8 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
         newNode -> set_data(ap); // Inputs the appointment data to the new node
         newNode -> set_next(head -> next()); // Sets the pointer in newNode to the node after it
         head -> set_next(newNode); // Sets the new node to be the second element   
-        
-        //Unoptimized code
-        /*
-        for (temp = head; temp -> next() != NULL; temp = temp -> next()) // Advances pointer to the last node in the list
-        temp -> set_next(new node); // Creates a new node and points to it
-        temp = temp -> next(); // Advances the pointer to the recently added node
-        head -> set_data(ap); // Inputs the appointment data to the new node
-        head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
-        */
     }
-    //reorder(); // Calls the reorder function to reorder the list
+    reorder(); // Calls the reorder function to reorder the list
 }
 
 void WaitList::display(std::ostream& outs)const{ // Output the list data
@@ -63,10 +54,12 @@ void WaitList::remove(std::string patientname){ // Removes an appointment from t
 }
 
 unsigned int WaitList::waiting()const{ // Returns an integer value of the number of people waiting
-    unsigned int count = 0; // Initalizes the count of patients to 0
-
-    return count; // Returns the number of waiting people
-}
+    unsigned int count = 0; // Unsigned int to track the count
+    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Advances through the list and counts up all terms
+            count++; // Increment list
+        }
+    return count; // Returns an integer value of the number of waiting patients
+    }
 
 unsigned int WaitList::longest_wait()const{ // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
     unsigned int LongestWait = 0; // initializes the longest wait to 0
@@ -106,4 +99,8 @@ void WaitList::load(std::istream& ins){ // Loads the WaitList in from a file
 
 void WaitList::save(std::ostream& outs){ // Saves the contents of the WaitList to a specified outstream
 
+}
+
+void WaitList::reorder(){ // Reorders the list (to be called after adding a new node)
+    
 }
