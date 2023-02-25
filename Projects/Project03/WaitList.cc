@@ -30,11 +30,11 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
         head -> set_data(ap); // Inputs the appointment data to the new node
         head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
     }
-    else{ // Adds a new node to the first spot in the list because reordering is required anyways
+    else{ // Adds a new node to the second spot in the list because reordering is required anyways
         node* newNode = new node; // Creates a node pointer and points it to a new node
         newNode -> set_data(ap); // Inputs the appointment data to the new node
-        newNode -> set_next(head); // Makes the new node point to the head of the list
-        head -> set_next(newNode); // Sets the head to point to the address of the new node   
+        newNode -> set_next(head -> next()); // Sets the pointer in newNode to the node after it
+        head -> set_next(newNode); // Sets the new node to be the second element   
         
         //Unoptimized code
         /*
@@ -49,8 +49,8 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
 }
 
 void WaitList::display(std::ostream& outs)const{ // Output the list data
-    for (node* temp = head; temp != NULL; temp = temp -> next()){
-        temp -> data().output(outs); // Calls the output function in appointment
+    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){
+        cursor -> data().output(outs); // Calls the output function in appointment
     }
 }
 
