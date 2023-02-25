@@ -69,8 +69,8 @@ unsigned int WaitList::longest_wait()const{ // Returns the longest wait in minut
 
 unsigned int WaitList::average_wait()const{ // Returns the average wait in minutes
     unsigned int AverageWait = 0; // Initializes the average wait to 0
-    unsigned int TotalWait = 0; // Initializes the total wait to 0
-    unsigned int count = waiting(); // Calls the waiting function to find out how many patients are in the wait list
+    //unsigned int TotalWait = 0; // Initializes the total wait to 0
+    //unsigned int count = waiting(); // Calls the waiting function to find out how many patients are in the wait list
 
     return AverageWait; // Returns the average wait in minutes
 }
@@ -101,6 +101,15 @@ void WaitList::save(std::ostream& outs){ // Saves the contents of the WaitList t
 
 }
 
-void WaitList::reorder(){ // Reorders the list (to be called after adding a new node)
-    
+void WaitList::reorder(){ // Reorders the list (to be called after adding a new node) called reccursively
+    node* smallest = head; // Pointer to keep track of the smallest wait time
+    for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Advances the list
+        if (smallest -> data().minutes_waiting() < cursor -> data().minutes_waiting()){ // Smallest contains a smaller wait time which should now go to the back of the list
+            node* temp = cursor -> next(); // Temp pointer for sorting
+            cursor -> set_next(smallest); // Set the nodes pointer to point to smallest
+            head = cursor; // Sets the address of head to the cursor
+            smallest -> set_next(temp); // Reorders the last address
+            reorder(); // Call this function reccursively
+        }
+    }
 }
