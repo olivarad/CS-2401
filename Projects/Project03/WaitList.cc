@@ -35,7 +35,7 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
         newNode -> set_data(ap); // Inputs the appointment data to the new node
         newNode -> set_next(head); // Sets the pointer in newNode to the old first spot in the list
         head = newNode; // Sets the new node to be the new first element   
-        //reorder(); // Calls the reorder function to reorder the list
+        reorder(); // Calls the reorder function to reorder the list
     }
 }
 
@@ -108,24 +108,15 @@ void WaitList::save(std::ostream& outs){ // Saves the contents of the WaitList t
 
 }
 
-void WaitList::reorder(){ // Reorders the list (to be called after adding a new node)
-    for(node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Advances the list once per loop
-        node* largest = cursor; // Sets "largest" equal to the current address stored in cursor
-        
-        for(node* itterator = cursor; itterator != NULL; itterator = itterator -> next()){ // Advances through list more times than cursor
-            if(itterator -> data() > largest -> data()){ // If "largest" was not actually largest, it is updated to be the actual largest at this point
-                largest = itterator; // Updates largest
+void WaitList::reorder(){ // Reorders the list (to be called after adding a new node), Selction Style
+    Appointment temp; // Easier to change data than order of list
+    for (node* i = head; i -> next() != NULL; i = i -> next()){ // First itterator
+        for (node* j = i -> next(); j != NULL; j = j -> next()){ // Second Itterator
+            if (i -> data() > j -> data()){ // Compares to see if swap is neccessary
+                temp = i -> data(); // Sets to prevent data loss
+                i -> set_data(j -> data()); // Swaps data
+                j -> set_data(temp); // Swaps data
             }
-        }
-
-        if(cursor != largest && cursor != head){ // Largest has changed since last but does not need to be swapped with the head
-            node* temp = cursor; // Sets temp node pointer to the cursor
-            cursor = largest; // makes cursor point to the actual largest
-            largest = temp; // makes largest point to the old cursor
-        }
-        else if(cursor != largest && cursor == head){ // Largest has changed since last and needs to be swapped with the head
-            head = largest; // Sets the largest to be the new first element
-            largest = cursor; // Sets the old largest to swap positions to be where the new largest was
         }
     }
 }
