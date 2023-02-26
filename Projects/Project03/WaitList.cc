@@ -115,7 +115,7 @@ void WaitList::reorder(){ // Reorders the list (to be called after adding a new 
         node* largest = cursor; // Sets "largest" equal to the current address stored in cursor
         
         for(node* itterator = cursor; itterator != NULL; itterator = itterator -> next()){ // Advances through list more times than cursor
-            if(itterator -> data().minutes_waiting() > largest -> data().minutes_waiting()){ // If "largest" was not actually largest, it is updated to be the actual largest at this point
+            if(itterator -> data() > largest -> data()){ // If "largest" was not actually largest, it is updated to be the actual largest at this point
                 largest = itterator; // Updates largest
             }
         }
