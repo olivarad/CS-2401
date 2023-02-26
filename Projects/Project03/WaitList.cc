@@ -35,8 +35,8 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
         newNode -> set_data(ap); // Inputs the appointment data to the new node
         newNode -> set_next(head -> next()); // Sets the pointer in newNode to the node after it
         head -> set_next(newNode); // Sets the new node to be the second element   
+        reorder(); // Calls the reorder function to reorder the list
     }
-    reorder(); // Calls the reorder function to reorder the list
 }
 
 void WaitList::display(std::ostream& outs)const{ // Output the list data
@@ -102,6 +102,7 @@ void WaitList::save(std::ostream& outs){ // Saves the contents of the WaitList t
 }
 
 void WaitList::reorder(){ // Reorders the list (to be called after adding a new node) called reccursively
+    /*
     node* smallest = head; // Pointer to keep track of the smallest wait time
     for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Advances the list
         if (smallest -> data().minutes_waiting() < cursor -> data().minutes_waiting()){ // Smallest contains a smaller wait time which should now go to the back of the list
@@ -112,22 +113,41 @@ void WaitList::reorder(){ // Reorders the list (to be called after adding a new 
             reorder(); // Call this function reccursively
         }
     }
-    /*
-        // Keep track of position
-    for(int i = 0; i < 4; i++){
-        smallsp = i;
-
-        //Check remaining data
-        for(int j = i + 1; j < 5; j++){
-            if(arr[j] < arr[smallsp]){
-                smallsp = j;
+    */
+    for(node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Advances the list once per loop
+        node* largest = cursor; // Sets "largest" equal to the current address stored in cursor
+        
+        for(node* itterator = cursor; itterator != NULL; itterator = itterator -> next()){ // Advances through list more times than cursor
+            if(itterator -> data().minutes_waiting() > largest -> data().minutes_waiting()){ // If "largest" was not actually largest, it is updated to be the actual largest at this point
+                largest = itterator; // Updates largest
             }
         }
 
-        if(arr[i] != arr[smallsp]){
-            temp = arr[i];
-            arr[i] = arr[smallsp];
-            arr[smallsp] = temp;
+        if(cursor != largest && cursor != head){ // Largest has changed since last but does not need to be swapped with the head
+            node* temp = cursor; // Sets temp node pointer to the cursor
+            cursor = largest; // makes cursor point to the actual largest
+            largest = temp; // makes largest point to the old cursor
         }
-    }*/
+        else if(cursor != largest && cursor == head){ // Largest has changed since last and needs to be swapped with the head
+            head = largest; // Sets the first item in the list to the largest wait time
+            largest -> set_next(cursor);
+        }
+    }
 }
+/*
+int largest;
+int temp;
+for(int i = 0; i < 4; i++){
+    largest = i;
+
+    for(int j = i + 1; j < SIZE; j++){
+        if(arr[j] > arr[largest]){
+            largest = j;
+        }
+    }
+    if(arr[i] != arr[largest]){
+        temp = arr[i];
+        arr[i] = arr[largest];
+        arr[largest] = temp;
+    }
+}*/
