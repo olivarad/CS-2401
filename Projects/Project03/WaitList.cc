@@ -47,7 +47,7 @@ void WaitList::display(std::ostream& outs)const{ // Output the list data
 
 Appointment WaitList::find(std::string patientname)const{ // Returns an appointment opject that matches the provided name
     for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
-        if (cursor -> data().get_name() == patientname){ // A name matxhx is found
+        if (cursor -> data().get_name() == patientname){ // A name match is found
             return cursor -> data(); // Returns the matching appointment
         }
     }
@@ -55,7 +55,20 @@ Appointment WaitList::find(std::string patientname)const{ // Returns an appointm
 }
 
 void WaitList::remove(std::string patientname){ // Removes an appointment from the list (requires changing links but not reordering)
-
+    if (head -> data().get_name() == patientname){ // Edge case in which the head is to be removed
+        node* temp = head; // Creates a temporary variable to prevent data loss
+        head = head -> next();
+        delete temp; // Deallocates removed node
+        return; // Exits the function upon success
+    }
+    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
+        if (cursor -> next() -> data().get_name() == patientname){ // A name match is found in the next node
+            node* temp = cursor -> next(); // Creates a temporary node pointer and sets it equal to the node address to be removed
+            cursor -> set_next(cursor -> next() -> next());
+            delete temp; // deallocates the removed node
+            break; // Exits the for loop upon success
+        }
+    }
 }
 
 unsigned int WaitList::waiting()const{ // Returns an integer value of the number of people waiting
@@ -67,9 +80,7 @@ unsigned int WaitList::waiting()const{ // Returns an integer value of the number
     }
 
 unsigned int WaitList::longest_wait()const{ // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
-    unsigned int LongestWait = 0; // initializes the longest wait to 0
-
-    return LongestWait; // Returns the longest wait in minutes
+    return head -> data().minutes_waiting(); // Returns the longest wait in minutes
 }
 
 unsigned int WaitList::average_wait()const{ // Returns the average wait in minutes
