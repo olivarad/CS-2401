@@ -46,6 +46,11 @@ void WaitList::display(std::ostream& outs)const{ // Output the list data
 }
 
 Appointment WaitList::find(std::string patientname)const{ // Returns an appointment opject that matches the provided name
+    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
+        if (cursor -> data().get_name() == patientname){ // A name matxhx is found
+            return cursor -> data(); // Returns the matching appointment
+        }
+    }
     return Appointment(); // Returns default appointment should one not be found
 }
 
