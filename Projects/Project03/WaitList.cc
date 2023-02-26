@@ -35,7 +35,7 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
         newNode -> set_data(ap); // Inputs the appointment data to the new node
         newNode -> set_next(head); // Sets the pointer in newNode to the old first spot in the list
         head = newNode; // Sets the new node to be the new first element   
-        reorder(); // Calls the reorder function to reorder the list
+        //reorder(); // Calls the reorder function to reorder the list
     }
 }
 
@@ -94,15 +94,13 @@ unsigned int WaitList::average_age()const{ // Returns the average age of all pat
 }
 
 void WaitList::load(std::istream& ins){ // Loads the WaitList in from a file
-    while(!ins.eof()){ // Runs until the file is empty
-    /*
+    Appointment ap; // Blank appointment to be written to
+    while(!ins.eof() && ins.peek() != '\n'){ // Runs until the file is empty
+        ins >> ap; // Aquire appointment data from ins
+        add(ap); // Runs the add functino for the aquired appointment data
         while (ins.peek() == '\n'){ // Finds newlines
             ins.ignore(); // Ignores newlines
         }
-        */
-        Appointment ap; // Blank appointment to be written to
-        ins >> ap; // Aquire appointment data from ins
-        add(ap); // Runs the add functino for the aquired appointment data
     }
 }
 
