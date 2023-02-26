@@ -79,16 +79,18 @@ unsigned int WaitList::waiting()const{ // Returns an integer value of the number
     return count; // Returns an integer value of the number of waiting patients
     }
 
-unsigned int WaitList::longest_wait()const{ // Returns the longest wait in minutes (minutes of waiting for the person at the head of the list)
+unsigned int WaitList::longest_wait()const{ // Returns the longest wait
     return head -> data().minutes_waiting(); // Returns the longest wait in minutes
 }
 
-unsigned int WaitList::average_wait()const{ // Returns the average wait in minutes
-    unsigned int AverageWait = 0; // Initializes the average wait to 0
-    //unsigned int TotalWait = 0; // Initializes the total wait to 0
-    //unsigned int count = waiting(); // Calls the waiting function to find out how many patients are in the wait list
-
-    return AverageWait; // Returns the average wait in minutes
+unsigned int WaitList::average_wait()const{ // Returns the average wait
+    unsigned int TotalWait = 0; // Initializes the total wait to 0
+    unsigned int count = 0; // Initializes patient count to 0
+    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Collects data for average calculation
+        TotalWait += cursor -> data().minutes_waiting(); // Adds up all the wait times
+        count ++; // Increments count of patients
+    }
+    return TotalWait / count; // Returns the average wait
 }
 
 unsigned int WaitList::oldest()const{ // Returns the oldest patients age in years
