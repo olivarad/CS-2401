@@ -30,11 +30,11 @@ void WaitList::add(Appointment ap){ // Adds an appointment to the list (list mus
         head -> set_data(ap); // Inputs the appointment data to the new node
         head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
     }
-    else{ // Adds a new node to the second spot in the list because reordering is required anyways
+    else{ // Adds a new node to the first spot in the list because reordering is required anyways
         node* newNode = new node; // Creates a node pointer and points it to a new node
         newNode -> set_data(ap); // Inputs the appointment data to the new node
-        newNode -> set_next(head -> next()); // Sets the pointer in newNode to the node after it
-        head -> set_next(newNode); // Sets the new node to be the second element   
+        newNode -> set_next(head); // Sets the pointer in newNode to the old first spot in the list
+        head = newNode; // Sets the new node to be the new first element   
         reorder(); // Calls the reorder function to reorder the list
     }
 }
@@ -94,26 +94,23 @@ unsigned int WaitList::average_age()const{ // Returns the average age of all pat
 }
 
 void WaitList::load(std::istream& ins){ // Loads the WaitList in from a file
-
+    while(!ins.eof()){ // Runs until the file is empty
+    /*
+        while (ins.peek() == '\n'){ // Finds newlines
+            ins.ignore(); // Ignores newlines
+        }
+        */
+        Appointment ap; // Blank appointment to be written to
+        ins >> ap; // Aquire appointment data from ins
+        add(ap); // Runs the add functino for the aquired appointment data
+    }
 }
 
 void WaitList::save(std::ostream& outs){ // Saves the contents of the WaitList to a specified outstream
 
 }
 
-void WaitList::reorder(){ // Reorders the list (to be called after adding a new node) called reccursively
-    /*
-    node* smallest = head; // Pointer to keep track of the smallest wait time
-    for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Advances the list
-        if (smallest -> data().minutes_waiting() < cursor -> data().minutes_waiting()){ // Smallest contains a smaller wait time which should now go to the back of the list
-            node* temp = cursor -> next(); // Temp pointer for sorting
-            cursor -> set_next(smallest); // Set the nodes pointer to point to smallest
-            head = cursor; // Sets the address of head to the cursor
-            smallest -> set_next(temp); // Reorders the last address
-            reorder(); // Call this function reccursively
-        }
-    }
-    */
+void WaitList::reorder(){ // Reorders the list (to be called after adding a new node)
     for(node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Advances the list once per loop
         node* largest = cursor; // Sets "largest" equal to the current address stored in cursor
         
@@ -129,25 +126,8 @@ void WaitList::reorder(){ // Reorders the list (to be called after adding a new 
             largest = temp; // makes largest point to the old cursor
         }
         else if(cursor != largest && cursor == head){ // Largest has changed since last and needs to be swapped with the head
-            head = largest; // Sets the first item in the list to the largest wait time
-            largest -> set_next(cursor);
+            head = largest; // Sets the largest to be the new first element
+            largest = cursor; // Sets the old largest to swap positions to be where the new largest was
         }
     }
 }
-/*
-int largest;
-int temp;
-for(int i = 0; i < 4; i++){
-    largest = i;
-
-    for(int j = i + 1; j < SIZE; j++){
-        if(arr[j] > arr[largest]){
-            largest = j;
-        }
-    }
-    if(arr[i] != arr[largest]){
-        temp = arr[i];
-        arr[i] = arr[largest];
-        arr[largest] = temp;
-    }
-}*/
