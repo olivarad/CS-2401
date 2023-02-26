@@ -107,7 +107,14 @@ unsigned int WaitList::oldest()const{ // Returns the oldest patients age in year
 }
 
 unsigned int WaitList::youngest()const{ // Returns the youngest patients age in years
-    unsigned int youngest = 0; // Age in years of the youngest patient
+    Date today; // Date variable to track todays date
+    today.make_today(); // Sets today to todays date
+    unsigned int youngest = head -> data().age(today); // Tracker to find age of youngest patient
+    for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
+        if (static_cast<unsigned int>(cursor -> data().age(today)) < youngest){ // New youngest found
+            youngest = cursor -> data().age(today);
+        }
+    }
 
     return youngest; // Returns the age of the youngest patient in years
 }
