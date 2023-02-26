@@ -115,14 +115,19 @@ unsigned int WaitList::youngest()const{ // Returns the youngest patients age in 
             youngest = cursor -> data().age(today);
         }
     }
-
     return youngest; // Returns the age of the youngest patient in years
 }
 
 unsigned int WaitList::average_age()const{ // Returns the average age of all patients in years
-    unsigned int average = 0; // Average age in years
-
-    return average; // Returns the average of all patients age in years
+    Date today; // Date variable to track todays date
+    today.make_today(); // Sets today to todays date
+    unsigned int TotalAge = 0; // total age in years
+    unsigned int count = 0; // Initializes patient count to 0
+    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Collects data for average calculation
+        TotalAge += static_cast<unsigned int>(cursor -> data().age(today)); // Adds up all the ages
+        count ++; // Increments count of patients
+    }
+    return TotalAge / count; // Returns the average of all patients age in years
 }
 
 void WaitList::load(std::istream& ins){ // Loads the WaitList in from a file
