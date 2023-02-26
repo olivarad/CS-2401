@@ -6,6 +6,7 @@
 
 #include "WaitList.h"
 #include "appointment.h"
+#include "date_time.h"
 
 using namespace std;
 
@@ -94,8 +95,14 @@ unsigned int WaitList::average_wait()const{ // Returns the average wait
 }
 
 unsigned int WaitList::oldest()const{ // Returns the oldest patients age in years
-    unsigned int oldest = 0; // Age in years of the oldest patient
-
+    Date today; // Date variable to track todays date
+    today.make_today(); // Sets today to todays date
+    unsigned int oldest = head -> data().age(today); // Tracker to find age of oldest patient
+    for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
+        if (static_cast<unsigned int>(cursor -> data().age(today)) > oldest){ // New oldest found
+            oldest = cursor -> data().age(today);
+        }
+    }
     return oldest; // Returns the age of the oldest patient in years
 }
 
