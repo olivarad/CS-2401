@@ -142,7 +142,9 @@ void WaitList::load(std::istream& ins){ // Loads the WaitList in from a file
 }
 
 void WaitList::save(std::ostream& outs){ // Saves the contents of the WaitList to a specified outstream
-
+    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
+        cursor -> data().output(outs); // Calls the output function for Appointment data in the Appointment class
+    }
 }
 
 void WaitList::reorder(){ // Reorders the list (to be called after adding a new node), Selction Style
