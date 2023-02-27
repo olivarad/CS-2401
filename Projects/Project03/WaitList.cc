@@ -18,9 +18,21 @@ WaitList::~WaitList(){ // Deconstructor
 }
 
 WaitList::WaitList(const WaitList& other){ // Copy constructor (Copys an exsisting WaitList into a new waitlist)
-    head = NULL; // Sets the new head equal to NULL
-    for (node* cursor = other.head; cursor != NULL; cursor = cursor -> next()){ // Increments through the list to be copied from
-        add(cursor -> data()); // Calls the add function with the data from other which will "reorder the lists, the input should already be reordered from load and add functions so it will not change the order, just run slightly slower"
+    node* itterator = head = NULL;
+    for (node* cursor = other.head; cursor != NULL; cursor = cursor -> next())
+    {
+        if (cursor == other.head){
+            head = new node; // Creates a new node and points to it with head
+            head -> set_data(cursor -> data()); // Inputs the appointment data to the new node
+            head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
+            itterator = head; // sets itterator
+        }
+        else{
+            itterator -> set_next(new node); // Creates a new node at the end of the list
+            itterator = itterator -> next(); // Advances itterator
+            itterator -> set_data(cursor -> data()); // Inputs the appointment data to the new node
+            itterator -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
+        }
     }
 }
 
