@@ -17,12 +17,25 @@ WaitList::~WaitList(){ // Deconstructor
     }
 }
 
-WaitList::WaitList(const WaitList& other){ // Copy constructor
-
+WaitList::WaitList(const WaitList& other){ // Copy constructor (Copys an exsisting WaitList into a new waitlist)
+    head = NULL; // Sets the new head equal to NULL
+    for (node* cursor = other.head; cursor != NULL; cursor = cursor -> next()){ // Increments through the list to be copied from
+        add(cursor -> data()); // Calls the add function with the data from other which will "reorder the lists, the input should already be reordered from load and add functions so it will not change the order, just run slightly slower"
+    }
 }
 
 void WaitList::operator = (const WaitList& other){ // Assignment operator
-
+    if(head == other.head){ // Check for self assignment
+        return; // Exit function
+    }
+    else{
+        for (node* temp = head; head != NULL; temp = head){ // Advances throught the list to be deallocated
+            head = head -> next(); // Advances head pointer
+            delete temp; // Deallocates data stored behind updated head pointer
+        }
+        delete head; // Deallocates head
+        WaitList apcopy(other); // Calls the copy constructor to take care of the rest
+    }
 }
 
 void WaitList::add(Appointment ap){ // Adds an appointment to the list (list must be reordered after this to reflect waitlist priority)
