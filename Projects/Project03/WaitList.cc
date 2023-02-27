@@ -106,53 +106,79 @@ unsigned int WaitList::waiting()const{ // Returns an integer value of the number
     }
 
 unsigned int WaitList::longest_wait()const{ // Returns the longest wait
-    return head -> data().minutes_waiting(); // Returns the longest wait in minutes
+    if (head != NULL){ // Data exsists in the list
+        return head -> data().minutes_waiting(); // Returns the longest wait in minutes
+    }
+    else{ // Empty list
+        return 0; // 0 minutes to show a non exsistent wait time
+    }
 }
 
 unsigned int WaitList::average_wait()const{ // Returns the average wait
-    unsigned int TotalWait = 0; // Initializes the total wait to 0
-    unsigned int count = 0; // Initializes patient count to 0
-    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Collects data for average calculation
-        TotalWait += cursor -> data().minutes_waiting(); // Adds up all the wait times
-        count ++; // Increments count of patients
+    if (head != NULL){ // List with data
+        unsigned int TotalWait = 0; // Initializes the total wait to 0
+        unsigned int count = 0; // Initializes patient count to 0
+        for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Collects data for average calculation
+            TotalWait += cursor -> data().minutes_waiting(); // Adds up all the wait times
+            count ++; // Increments count of patients
+        }
+        return TotalWait / count; // Returns the average wait
     }
-    return TotalWait / count; // Returns the average wait
+    else{ // Empty list
+        return 0; // 0 to represent empty list
+    }
 }
 
 unsigned int WaitList::oldest()const{ // Returns the oldest patients age in years
-    Date today; // Date variable to track todays date
-    today.make_today(); // Sets today to todays date
-    unsigned int oldest = head -> data().age(today); // Tracker to find age of oldest patient
-    for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
-        if (static_cast<unsigned int>(cursor -> data().age(today)) > oldest){ // New oldest found
-            oldest = cursor -> data().age(today);
+    if (head != NULL){ // List with data
+        Date today; // Date variable to track todays date
+        today.make_today(); // Sets today to todays date
+        unsigned int oldest = head -> data().age(today); // Tracker to find age of oldest patient
+        for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
+            if (static_cast<unsigned int>(cursor -> data().age(today)) > oldest){ // New oldest found
+                oldest = cursor -> data().age(today);
+            }
         }
+        return oldest; // Returns the age of the oldest patient in years
     }
-    return oldest; // Returns the age of the oldest patient in years
+    else{ // Empty list
+        return 0; // 0 to represent empty list
+    }
+    
 }
 
 unsigned int WaitList::youngest()const{ // Returns the youngest patients age in years
-    Date today; // Date variable to track todays date
-    today.make_today(); // Sets today to todays date
-    unsigned int youngest = head -> data().age(today); // Tracker to find age of youngest patient
-    for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
-        if (static_cast<unsigned int>(cursor -> data().age(today)) < youngest){ // New youngest found
-            youngest = cursor -> data().age(today);
+    if (head != NULL){ // List with data
+        Date today; // Date variable to track todays date
+        today.make_today(); // Sets today to todays date
+        unsigned int youngest = head -> data().age(today); // Tracker to find age of youngest patient
+        for (node* cursor = head -> next(); cursor != NULL; cursor = cursor -> next()){ // Itterates through the list
+            if (static_cast<unsigned int>(cursor -> data().age(today)) < youngest){ // New youngest found
+                youngest = cursor -> data().age(today);
+            }
         }
+        return youngest; // Returns the age of the youngest patient in years
     }
-    return youngest; // Returns the age of the youngest patient in years
+    else{ // Empty list
+        return 0; // 0 to represent empty list
+    }
 }
 
 unsigned int WaitList::average_age()const{ // Returns the average age of all patients in years
-    Date today; // Date variable to track todays date
-    today.make_today(); // Sets today to todays date
-    unsigned int TotalAge = 0; // total age in years
-    unsigned int count = 0; // Initializes patient count to 0
-    for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Collects data for average calculation
-        TotalAge += static_cast<unsigned int>(cursor -> data().age(today)); // Adds up all the ages
-        count ++; // Increments count of patients
+    if (head != NULL){ // List with data
+        Date today; // Date variable to track todays date
+        today.make_today(); // Sets today to todays date
+        unsigned int TotalAge = 0; // total age in years
+        unsigned int count = 0; // Initializes patient count to 0
+        for (node* cursor = head; cursor != NULL; cursor = cursor -> next()){ // Collects data for average calculation
+            TotalAge += static_cast<unsigned int>(cursor -> data().age(today)); // Adds up all the ages
+            count ++; // Increments count of patients
+        }
+        return TotalAge / count; // Returns the average of all patients age in years
     }
-    return TotalAge / count; // Returns the average of all patients age in years
+    else{ // List with data
+        return 0; // 0 to represent empty list
+    }
 }
 
 void WaitList::load(std::istream& ins){ // Loads the WaitList in from a file
