@@ -1,7 +1,7 @@
 /**
  * @file WaitList.cc
  * @author Olivia Radecki (gr982220@ohio.edu)
- * @date 2023-02-24
+ * @date 2023-02-27
  */
 
 #include "WaitList.h"
