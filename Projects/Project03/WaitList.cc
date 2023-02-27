@@ -156,10 +156,26 @@ unsigned int WaitList::average_age()const{ // Returns the average age of all pat
 }
 
 void WaitList::load(std::istream& ins){ // Loads the WaitList in from a file
+    head = NULL; // Sets head equal to NULL
+    node* cursor = head; // Creates a cursor equal to head
     Appointment ap; // Blank appointment to be written to
     while(!ins.eof() && ins.peek() != '\n'){ // Runs until the file is empty
         ins >> ap; // Aquire appointment data from ins
-        add(ap); // Runs the add functino for the aquired appointment data
+        if(ap.get_name() == "NA"){ // No List
+            return; // Exits Function
+        }
+        if (cursor == NULL){ // At begining of list
+            head = new node; // Creates a new node and points to it with head
+            head -> set_data(ap); // Inputs the appointment data to the new node
+            head -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
+            cursor = head; // Sets cursor equal to the new node pointed to by head
+        }
+        else{
+            cursor -> set_next(new node); // Creates a new node at the end of the list
+            cursor = cursor -> next(); // Advances cursor
+            cursor -> set_data(ap); // Inputs the appointment data to the new node
+            cursor -> set_next(NULL); // Makes the new node point to null indicating that it is the last node in the list
+        }
         while (ins.peek() == '\n'){ // Finds newlines
             ins.ignore(); // Ignores newlines
         }
