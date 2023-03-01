@@ -80,7 +80,7 @@ void show_list(const node* head){
      const node* cursor = head;
 
      while(cursor !=  NULL){
-          cout << cursor -> data << endl;
+          cout << cursor -> data << "  ";
           cursor = cursor -> next;
      }
      cout << endl;
