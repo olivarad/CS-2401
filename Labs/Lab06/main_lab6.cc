@@ -10,6 +10,11 @@
            John Dolan				
            Patricia Lindner             Spring 2023
 *************************************************************************/
+/**
+ * @file main_lab6.cc
+ * @author Olivia Radecki (gr982220@ohio.edu)
+ * @date 2023-02-28
+ */
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
